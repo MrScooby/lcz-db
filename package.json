@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "watch": "tsc --watch",
     "start": "node -r ts-node/register ./src/app.ts",
     "dev": "nodemon",
     "build": "tsc",
@@ -18,11 +17,13 @@
   "author": "Scooby",
   "license": "ISC",
   "dependencies": {
-    "firebase-admin": "^8.8.0"
+    "firebase-admin": "^8.8.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@types/node": "^10.17.6",
     "@types/request": "^2.48.1",
+    "cheerio": "^1.0.0-rc.3",
     "nodemon": "^2.0.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.2.2"
