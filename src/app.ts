@@ -51,11 +51,13 @@ interface InputData {
 
 async function app() {
   const inputData: InputData = {
-    url: 'https://lubimyczytac.pl/ksiazka/257445/gielda-papierow-wartosciowych-dla-bystrzakow',
-    shelfs: ['Przeczytane', '2020'],
-    rating: 8
+    url: 'https://lubimyczytac.pl/ksiazka/20737/gwiazda-pandory-ekspedycja',
+    shelfs: ['Przeczytane', '2021'],
+    rating: 7
   }
+  // 'Uczta wyobraźni'
   let newBookData: BookData = await getNewBookData(inputData)
+  console.log('newBookData', newBookData)
   await insertNewBook(newBookData)
 
   // updatePagesCountInShelfs(['Przeczytane', '2020'])
@@ -136,7 +138,7 @@ const getNewBookData = async (inputData: InputData): Promise<BookData> => {
     title: $('meta[property="og:title"]').attr('content'),
     author: $('a.link-name').text(),
     genre: $('li.breadcrumb-item').slice(2).children('a').text(),
-    pages: Number($('span.js-time-reading').attr('data-reading-time')),
+    pages: Number($('#book-details dl dt:contains("Liczba stron:")').next().text()),
     ISBN: $('meta[property="books:isbn"]').attr('content')
   }
 }
