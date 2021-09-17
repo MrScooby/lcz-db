@@ -51,13 +51,16 @@ interface InputData {
 
 async function app() {
   const inputData: InputData = {
-    url: 'https://lubimyczytac.pl/ksiazka/20737/gwiazda-pandory-ekspedycja',
+    url: 'https://lubimyczytac.pl/ksiazka/4931632/pokora',
     shelfs: ['Przeczytane', '2021'],
-    rating: 7
+    rating: 5
   }
   // 'Uczta wyobraźni'
   let newBookData: BookData = await getNewBookData(inputData)
-  console.log('newBookData', newBookData)
+  
+  console.log(` == New book data == `)
+  console.log(newBookData)
+  
   await insertNewBook(newBookData)
 
   // updatePagesCountInShelfs(['Przeczytane', '2020'])
@@ -131,7 +134,7 @@ const getNewBookData = async (inputData: InputData): Promise<BookData> => {
   const $ = cheerio.load(await readPageHtml(inputData.url))
   console.log(` == Reading page html == `)
   return {
-    id: Number($('a.addToPackage').attr('data-id')),
+    id: Number($('button.btn-rate').attr('data-bookid')),
     url: inputData.url,
     shelfs: inputData.shelfs,
     rating: inputData.rating,
