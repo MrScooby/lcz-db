@@ -51,19 +51,19 @@ interface InputData {
 
 async function app() {
   const inputData: InputData = {
-    url: 'https://lubimyczytac.pl/ksiazka/4931632/pokora',
-    shelfs: ['Przeczytane', '2021'],
+    url: 'https://lubimyczytac.pl/ksiazka/32059/dziennik-nimfomanki',
+    shelfs: ['Przeczytane', '2022'],
     rating: 5
   }
   // 'Uczta wyobraźni'
   let newBookData: BookData = await getNewBookData(inputData)
-  
+
   console.log(` == New book data == `)
   console.log(newBookData)
   
   await insertNewBook(newBookData)
 
-  // updatePagesCountInShelfs(['Przeczytane', '2020'])
+  // updatePagesCountInShelfs(['Przeczytane', '2021'])
   // udateGenres()
 }
 
@@ -138,7 +138,8 @@ const getNewBookData = async (inputData: InputData): Promise<BookData> => {
     url: inputData.url,
     shelfs: inputData.shelfs,
     rating: inputData.rating,
-    title: $('meta[property="og:title"]').attr('content'),
+    title: $("h1.book__title").text().substring(1),
+    // title: $('meta[property="og:title"]').attr('content'),
     author: $('a.link-name').text(),
     genre: $('li.breadcrumb-item').slice(2).children('a').text(),
     pages: Number($('#book-details dl dt:contains("Liczba stron:")').next().text()),
